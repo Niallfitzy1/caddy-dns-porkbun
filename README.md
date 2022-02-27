@@ -1,23 +1,13 @@
-**DEVELOPER INSTRUCTIONS:**
 
-- Update module name in go.mod
-- Update dependencies to latest versions
-- Update name and year in license
-- Customize configuration and Caddyfile parsing
-- Update godocs / comments (especially provider name and nuances)
-- Update README and remove this section
-
----
-
-\<PROVIDER\> module for Caddy
+Porkbun module for Caddy
 ===========================
 
-This package contains a DNS provider module for [Caddy](https://github.com/caddyserver/caddy). It can be used to manage DNS records with \<PROVIDER\>.
+This package contains a DNS provider module for [Caddy](https://github.com/caddyserver/caddy). It can be used to manage DNS records with Porkbun.
 
 ## Caddy module name
 
 ```
-dns.providers.provider_name
+dns.providers.porkbun
 ```
 
 ## Config examples
@@ -30,8 +20,9 @@ To use this module for the ACME DNS challenge, [configure the ACME issuer in you
 	"challenges": {
 		"dns": {
 			"provider": {
-				"name": "provider_name",
-				"api_token": "YOUR_PROVIDER_API_TOKEN"
+				"name": "porkbun",
+				"api_key": "{env.PORKBUN_API_KEY}",
+        		"api_secret_key": "{env.PORKBUN_API_SECRET_KEY}"
 			}
 		}
 	}
@@ -43,13 +34,19 @@ or with the Caddyfile:
 ```
 # globally
 {
-	acme_dns provider_name ...
+	acme_dns dns porkbun {
+			"api_key": "{env.PORKBUN_API_KEY}",
+			"api_secret_key": "{env.PORKBUN_API_SECRET_KEY}"
+	}
 }
 ```
 
 ```
 # one site
 tls {
-	dns provider_name ...
+	dns porkbun {
+			"api_key": "{env.PORKBUN_API_KEY}",
+			"api_secret_key": "{env.PORKBUN_API_PASSWORD}"
+	}
 }
 ```
